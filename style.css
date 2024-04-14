@@ -74,6 +74,8 @@ section {
   width: 80%;
   height: 40px;
 
+  padding: 10px;
+
   background-color: var(--color-negro);
   border: 2px solid var(--color-morado);
 
@@ -109,6 +111,8 @@ section {
   display: flex;
   width: 100%;
   height: 100px;
+
+  padding: 10px;
   
   justify-content: center;
   align-items: center;
