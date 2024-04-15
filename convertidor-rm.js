@@ -2,7 +2,7 @@ const d = document;
 
 export default function convertirNumerosRomanos (input,btn,div) {
     // definimos variables 
-    const $input = d.querySelector(input),
+    const $input = d.querySelector(input), 
             $btn = d.querySelector(btn),
             $div = d.querySelector(div);
 
@@ -10,8 +10,8 @@ export default function convertirNumerosRomanos (input,btn,div) {
 
 
 
-    // funcion para convertir de numeros a numeros romanos 
-    function err(n) {
+    // funcion para detectar errores 
+    function errRomano(n) {
         let numero = n;
 
         // si sale mal 
@@ -55,79 +55,100 @@ export default function convertirNumerosRomanos (input,btn,div) {
             return true
         }
         // ------------------------------------------------------------ 
+        // si no hay errores
+        return false
     }
 
 
     // --------------------------------------------------- 
 
+    // funcion para convertir a numero romanos
     function convertir(n) {
-        
-        
+        // llamamos a la funcion error 
 
+        // si errRomano da true entonces 
+        if(errRomano(n)) {
+            // anidele la clase "error" 
+            $div.classList.add('error')
+            return;
+        }
+        
+        // declaramos variable result 
+        let result;
+
+        // creamos funcion switch 
          switch (n) {
-            case n === 1:
+            case 1:
                 result = "I"
                 break;
 
-                case n === 4:
+                case 4:
                 result = "IV"
                 break;
 
-                case n === 5:
+                case 5:
                 result = "V"
                 break;
 
-                case n === 9:
+                case 9:
                 result = "IX"
                 break;
 
-                case n === 10:
+                case 10:
                 result = "X"
                 break;
 
-                case n === 40:
+                case 40:
                 result = "XL"
                 break;
 
-                case n === 50:
+                case 50:
                 result = "L"
                 break;
 
-                case n === 90:
+                case 90:
                 result = "XC"
                 break;
 
-                case n === 100:
+                case 100:
                 result = "C"
                 break;
 
-                case n === 400:
+                case 400:
                 result = "CD"
                 break;
 
-                case n === 500:
+                case 500:
                 result = "D"
                 break;
 
-                case n === 900:
+                case 900:
                 result = "CM"
                 break;
 
-                case n === 1000:
+                case 1000:
                 result = "M"
                 break;
         
-            default:
+                default:
                 break;
                 
+            
         }
+        // insertamos contenido al $div 
+        $div.innerHTML = `<p>${result}</p>`
 
+        // y aniadimos la clase correct y eliminamos la error 
+        $div.classList.add('correct');
+        $div.classList.remove('error')
     }
 
     // agregamos listener en d 
     d.addEventListener('click',e=> {
         if(e.target === $btn) {
-            err($input.value)
+
+            // llamamos a la funcion convertir 
+            convertir(parseInt($input.value)) // lo convierte a un numero
         }
     })
 } 
