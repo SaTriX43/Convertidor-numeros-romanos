@@ -7,9 +7,6 @@ export default function convertirNumerosRomanos (input,btn,div) {
             $div = d.querySelector(div);
 
     
-
-
-
     // funcion para detectar errores 
     function errRomano(n) {
         let numero = n;
@@ -59,94 +56,53 @@ export default function convertirNumerosRomanos (input,btn,div) {
         return false
     }
 
+    function numerosRomanos(n) {
+        // definimos referencias 
+        let romanos = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"],  //Numero romanos
+            arabicos = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1], // los arabicos
+            result = ''; // variable para guardar
+
+            // para i = 0 cuando i sea mayor a la longitud de arabicos sumale 1 a i 
+            for(let i=0 ; i < arabicos.length ; i++) {
+                // mientras que (n) sea mayor o igual que arabicos entonces  
+                while(n >= arabicos[i]) {
+                    // result va ser + igual al indice de romanos 
+                    result += romanos[i];
+                    // n se quitamos el indice de arabicos 
+                    n -= arabicos[i]; 
+                }
+            }
+
+            // aniadimos y quitamos clases 
+            $div.classList.add('correct');
+            $div.classList.remove('error');
+            // creamos variable mostrarResult que sea igaul a $div en su propiedad innerHTML le aniadimos result 
+            let mostrarResult = $div.innerHTML = `<p>${result}</p>`
+
+            // retornamos mostrarResult 
+            return mostrarResult
+     }
+
 
     // --------------------------------------------------- 
 
     // funcion para convertir a numero romanos
     function convertir(n) {
         // llamamos a la funcion error 
-
         // si errRomano da true entonces 
         if(errRomano(n)) {
             // anidele la clase "error" 
             $div.classList.add('error')
-            return;
+            return false;
         }
-        
-        // declaramos variable result 
-        let result;
 
-        // creamos funcion switch 
-         switch (n) {
-            case 1:
-                result = "I"
-                break;
-
-                case 4:
-                result = "IV"
-                break;
-
-                case 5:
-                result = "V"
-                break;
-
-                case 9:
-                result = "IX"
-                break;
-
-                case 10:
-                result = "X"
-                break;
-
-                case 40:
-                result = "XL"
-                break;
-
-                case 50:
-                result = "L"
-                break;
-
-                case 90:
-                result = "XC"
-                break;
-
-                case 100:
-                result = "C"
-                break;
-
-                case 400:
-                result = "CD"
-                break;
-
-                case 500:
-                result = "D"
-                break;
-
-                case 900:
-                result = "CM"
-                break;
-
-                case 1000:
-                result = "M"
-                break;
-        
-                default:
-                break;
-                
-            
-        }
-        // insertamos contenido al $div 
-        $div.innerHTML = `<p>${result}</p>`
-
-        // y aniadimos la clase correct y eliminamos la error 
-        $div.classList.add('correct');
-        $div.classList.remove('error')
+        // llamamos a funcion numerosRomanos 
+        numerosRomanos(n)
     }
 
     // agregamos listener en d 
     d.addEventListener('click',e=> {
         if(e.target === $btn) {
-
             // llamamos a la funcion convertir 
             convertir(parseInt($input.value)) // lo convierte a un numero
         }
